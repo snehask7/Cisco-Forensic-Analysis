@@ -1,0 +1,47 @@
+****************************************************
+ENCRYPTION
+****************************************************
+
+CREATING KEY PAIR
+openssl genrsa -out sneha.pem 2048
+
+EXTRACTING THE PUBLIC KEY
+openssl rsa -in sneha.pem -pubout -out snehapubkey.pem
+
+CREATING MESSAGE
+cat > message-to-send
+Hey! I've encrypted this message using your public key!
+
+ENCRYPTING THE MESSAGE
+openssl rsautl -in message-to-send -out encrypted-message -pubin -inkey srirampub.pem -encrypt
+
+CONVERTING MESSAGE FROM BINARY TO ASCII
+base64 encrypted-message > enc-message-sriram-64.txt
+
+cat enc-message-sriram-64.txt
+gLKs4dUm/ukNOejs9X3TXqduyLv2MxfZDeMEMD1mAsEdvNLIt5QmOFFoqSWoP7f18ZUpAjeOhgMi
+yDC+yS6rU5VS+/mgOTWta61lfueI6VRRm6LVmO6y6GNpD2bfZ/CdC+5VGFMx2m2udHtXlK8cwHLt
+K+aRu+OHgq9yx8b1uXF22QOpyz67Cto2NgqM1bpkHjjFcsFUlrbKGu788XbgdxWRXDVAzqtu4LsH
+/vTYxEO9ihH0+kV3vqh3+0QH3HcemCis/JVyVkCatPvzd35sqaXSxL3ul2UM+BbUfAvPSt7gtI51
+X3fyDlyFmDNp6J1K9Mi2bXPasALdlxBtwbcC/w==
+
+****************************************************enc-me
+DECRYPTION
+****************************************************
+
+MESSAGE RECEIVED
+cat enc-message-sneha.txt
+pnGyryF/k8ksUt3+Yf9/OGlx0UpdbWwNWab7/khldL4P7tiGmq9kT9JQy3zHWx3AHb8Xa6tQVn/k
+LIT/aHIjusy/PbakiW0yXHX+twzWeKBd4unSlcrd+vz8Y/N0tnFH3+7WWit2HBO47Hz9hHh8mjSx
+jRsbX081ZIu0fM/ExAwfx0prp5W9N5WODMlrsc5mjl1O3v0pgThmyuKNFyIG+WON1Hsf3actXKYP
+H6kgDk8Tf97Pg5toLtY4D1G010YbdpsHFsGDPZ+vEpRgwxlSxQOZOMJQdO/88Pj8t1dQTSGtaBwi
+zGtGCslmMdwo1FEIqkftS31Zsci8FTjEregg0g==
+
+CONVERTING MESSAGE FROM ASCII TO BINARY
+base64 -d enc-message-sneha.txt > bin-message.txt
+
+DECRYPTING MESSAGE
+openssl rsautl -in bin-message.txt -inkey sneha.pem -decrypt > decrypted-message.txt
+
+cat decrypted-message.txt
+You've been bamboozled! XD
